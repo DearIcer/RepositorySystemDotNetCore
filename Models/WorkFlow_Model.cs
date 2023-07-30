@@ -13,6 +13,6 @@ namespace Models
         /// 描述
         /// </summary>
         [MaxLength(64)]
-        public string Description { get; set; }
+        public string? Description { get; set; }
     }
 }

@@ -8,22 +8,22 @@ namespace Models
         /// 描述
         /// </summary>
         [MaxLength(32)]
-        public string Description { get; set; }
+        public string? Description { get; set; }
         /// <summary>
         /// 耗材类型id
         /// </summary>
         [MaxLength(36)]
-        public string CategoryId { get; set; }
+        public string? CategoryId { get; set; }
         /// <summary>
         /// 耗材名称
         /// </summary>
         [MaxLength(16)]
-        public string ConsumableName { get; set; }
+        public string? ConsumableName { get; set; }
         /// <summary>
         /// 耗材规格
         /// </summary>
         [MaxLength(32)]
-        public string Specification { get; set; }
+        public string? Specification { get; set; }
         /// <summary>
         /// 数量
         /// </summary>
@@ -32,7 +32,7 @@ namespace Models
         /// 单位
         /// </summary>
         [MaxLength(8)]
-        public string Unit { get; set; }
+        public string? Unit { get; set; }
         /// <summary>
         /// 价格
         /// </summary>

@@ -1,10 +1,10 @@
 using BLL;
+using CommonLib;
 using DAL;
 using IBLL;
 using IDAL;
 using Microsoft.EntityFrameworkCore;
 using Models;
-using Models.DTO;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +21,7 @@ builder.Services.AddControllersWithViews();
 
 // ×¢²áSession
 builder.Services.AddSession();
+
 #region IOC×¢²á
 
 builder.Services.AddScoped<IUserInfoDAL, UserInfoDAL>();
@@ -66,7 +67,10 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseStaticFiles();
+
 app.UseRouting();
+
+app.UseSession();
 app.UseAuthorization();
 
 //app.MapControllerRoute(
@@ -88,5 +92,34 @@ app.UseEndpoints(endpoints =>
         name: "Admin",
         pattern: "{area:exists}/{controller=MenuInfo}/{action=ListView}/{id?}");
 });
-
+//InitDB();
 app.Run();
+
+
+static void InitDB()
+{
+    var options = new DbContextOptionsBuilder<RepositorySystemContext>()
+        .UseSqlServer(@"Data Source=.;Initial Catalog=RepositorySystem_Core;Integrated Security=True;TrustServerCertificate=True").Options;
+
+    RepositorySystemContext db = new RepositorySystemContext(options);
+
+    db.Database.EnsureDeleted();
+    db.Database.EnsureCreated();
+
+    // Ìí¼Ó²âÊÔÓÃ»§
+    UserInfo userInfo = new UserInfo()
+    {
+        Id = Guid.NewGuid().ToString(),
+        Account = "admin",
+        PassWord = MD5Help.GenerateMD5("123456"),
+        CreatedTime = DateTime.Now,
+        IsAdmin = true,
+        UserName = "testdata",
+        DepartmentId = Guid.NewGuid().ToString(),
+    };
+
+    db.UserInfo.Add(userInfo);
+
+
+    Console.WriteLine(db.SaveChanges() > 0);
+}

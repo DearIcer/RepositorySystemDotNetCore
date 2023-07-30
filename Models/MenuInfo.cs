@@ -13,7 +13,7 @@ namespace Models
         /// 描述
         /// </summary>
         [MaxLength(32)]
-        public string Description { get; set; }
+        public string? Description { get; set; }
         /// <summary>
         /// 等级
         /// </summary>
@@ -26,21 +26,21 @@ namespace Models
         /// 访问地址
         /// </summary>
         [MaxLength(128)]
-        public string Href { get; set; }
+        public string? Href { get; set; }
         /// <summary>
         /// 父菜单id
         /// </summary>
         [MaxLength(36)]
-        public string ParentId { get; set; }
+        public string? ParentId { get; set; }
         /// <summary>
         /// 图标样式
         /// </summary>
         [MaxLength(32)]
-        public string Icon { get; set; }
+        public string? Icon { get; set; }
         /// <summary>
         /// 目标
         /// </summary>
         [MaxLength(16)]
-        public string Target { get; set; }
+        public string? Target { get; set; }
     }
 }

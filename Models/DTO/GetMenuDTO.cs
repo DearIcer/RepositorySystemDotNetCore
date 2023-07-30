@@ -20,7 +20,7 @@ namespace Models.DTO
         public HomeMenuInfoDTO HomeInfo { get; set; } = new HomeMenuInfoDTO()
         {
             Title = "首页",
-            Href = "/page/welcome-1.html?t=1"
+            Href = "/page/HtmlPage1.html"
         };
 
         /// <summary>

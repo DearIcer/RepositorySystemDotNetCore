@@ -18,7 +18,7 @@ namespace Models.DTO
         /// <summary>
         /// 描述
         /// </summary>
-        public string Description { get; set; }
+        public string? Description { get; set; }
         /// <summary>
         /// 部门名字
         /// </summary>
@@ -26,16 +26,16 @@ namespace Models.DTO
         /// <summary>
         /// 主管ID
         /// </summary>
-        public string LeaderId { get; set; }
+        public string? LeaderId { get; set; }
         /// <summary>
         /// 父部门ID
         /// </summary>
-        public string ParentId { get; set; }
+        public string? ParentId { get; set; }
         /// <summary>
         /// 创建时间
         /// </summary>
         public DateTime CreateTime { get; set; }
-        public string ParentName { get; set; }
-        public string LeaderName { get; set; }
+        public string? ParentName { get; set; }
+        public string? LeaderName { get; set; }
     }
 }

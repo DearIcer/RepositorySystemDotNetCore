@@ -33,29 +33,33 @@ namespace BLL
             if (string.IsNullOrWhiteSpace(entity.Id))
             {
                 msg = "部门ID不能为空!";
+                return false;
             }
 
             if (string.IsNullOrWhiteSpace(entity.Description))
             {
                 msg = "部门描述不能为空!";
+                return false;
             }
 
             if (string.IsNullOrWhiteSpace(entity.DepartmentName))
             {
                 msg = "部门名字不能为空!";
+                return false;
             }
 
             if (string.IsNullOrWhiteSpace(entity.LeaderId))
             {
                 msg = "主管ID不能为空!";
+                return false;
             }
 
             if (string.IsNullOrWhiteSpace(entity.ParentId))
             {
                 msg = "父部门ID不能为空";
+                return false;
             }
 
-            //entity.Id = Guid.NewGuid().ToString();
             // 判断ID 是否重复
             DepartmentInfo info = _departmentInfoDAL.GetEntities().FirstOrDefault(u => u.Id == entity.Id);
             if (info != null)
@@ -212,6 +216,7 @@ namespace BLL
 
             return ListPage;
         }
+
     /// <summary>
     /// 获取下来列表的返回数据
     /// </summary>

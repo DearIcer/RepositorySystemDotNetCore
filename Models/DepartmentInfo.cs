@@ -18,11 +18,11 @@ namespace Models
         /// 主管id
         /// </summary>
         [MaxLength(36)]
-        public string LeaderId { get; set; }
+        public string? LeaderId { get; set; }
         /// <summary>
         /// 父部门id
         /// </summary>
         [MaxLength(36)]
-        public string ParentId { get; set; }
+        public string? ParentId { get; set; }
     }
 }

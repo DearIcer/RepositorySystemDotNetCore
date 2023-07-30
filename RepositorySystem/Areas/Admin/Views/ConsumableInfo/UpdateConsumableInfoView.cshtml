@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="~/lib/layui-v2.6.3/css/layui.css" media="all">
+    <link rel="stylesheet" href="~/css/public.css" media="all">
+    <style>
+        body {
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="layui-form layuimini-form" lay-filter="fromData">
+        <div class="layui-form-item">
+            <label class="layui-form-label required">耗材名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="consumableName" lay-verify="required" placeholder="请输入分类名" value=""
+                    class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">耗材规格</label>
+            <div class="layui-input-block">
+                <input type="text" name="specification" placeholder="请输入耗材规格" value="" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">单位</label>
+            <div class="layui-input-block">
+                <input type="text" name="unit" placeholder="请输入单位" value="" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">价格</label>
+            <div class="layui-input-block">
+                <input type="text" name="money" placeholder="价格" value="" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">警告库存</label>
+            <div class="layui-input-block">
+                <input type="text" name="warningNum" placeholder="请描述" value="" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">描述</label>
+            <div class="layui-input-block">
+                <input type="text" name="description" placeholder="请描述" value="" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label ">耗材类型</label>
+            <div class="layui-input-block">
+                <select name="parentCategorySelect" id="parentCategoryId">
+                    <option value=""></option>
+                </select>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn layui-btn-normal" lay-submit lay-filter="saveBtn">确认保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
+    <script>
+        //  获取父页面的回调数据
+        function getDate(Data) {
+            parentData = Data;
+            @* console.log('父级页面回调', parentData); *@
+            form.val("fromData", {
+                "consumableName": parentData.consumableName,
+                "specification": parentData.specification,
+                "unit": parentData.unit,
+                "money": parentData.money,
+                "warningNum": parentData.warningNum,
+                "description": parentData.description,
+                "categoryId": parentData.categoryId
+            });
+        }
+        // 刷新父页面的表格函数
+        function reloadParentTable() {
+            var index = parent.layer.getFrameIndex(window.name);
+            parent.layer.close(index);
+            parent.layui.table.reload('currentTableId');
+        }
+        var parentData ;
+        var form;
+        
+
+        layui.use(['form'], function () {
+
+            var layer = layui.layer,
+                $ = layui.$;
+            form = layui.form;
+
+            var id = window.location.search.substr(4);
+            console.log('父级页面回调', parentData);
+            $.ajax({
+                url: '/Admin/ConsumableInfo/GetSelectOptions',
+                type: 'GET',
+                success: function (data) {
+                    console.log(data.data);
+                    var parentSelect = data.data;
+                    for (var i = 0; i < parentSelect.length; i++) {
+                        $("#parentCategoryId").append('<option value="' + parentSelect[i].value + '">' + parentSelect[i].title + '</option>');
+                    }
+                    form.render('select');
+
+                },
+                error: function (xhr, status, error) {
+                    console.log(error);
+                }
+            });
+
+            ////监听提交
+            form.on('submit(saveBtn)', function (data) {
+                data.field.categoryId = $("#parentCategoryId").val();
+                $.ajax({
+                    url: "/Admin/ConsumableInfo/UpdateConsumableInfo",
+                    type: 'POST',
+                    data: data.field,
+                    success: function (res) {
+                        if (res.code == 200) {
+                            var index = layer.alert(res.msg, {
+                                title: '最终的提交信息'
+                            }, function () {
+
+                                // 关闭弹出层
+                                layer.close(index);
+                                reloadParentTable();
+                                var iframeIndex = parent.layer.getFrameIndex(window.name);
+                                parent.layer.close(iframeIndex);
+
+                            });
+
+                        } else {
+                            layer.alert(res.msg);
+                        }
+
+                    }
+                })
+                return false;
+            });
+
+        });
+    </script>
+</body>
+
+</html>
+

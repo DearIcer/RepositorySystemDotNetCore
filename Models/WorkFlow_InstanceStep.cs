@@ -31,6 +31,6 @@ namespace Models
         /// 上一个步骤Id
         /// </summary>
         [MaxLength(36)]
-        public string BeforeStepId { get; set; }
+        public string? BeforeStepId { get; set; }
     }
 }

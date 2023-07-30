@@ -17,12 +17,12 @@ namespace Models
         /// 描述
         /// </summary>
         [MaxLength(64)]
-        public string Description { get; set; }
+        public string? Description { get; set; }
         /// <summary>
         /// 申请理由
         /// </summary>
         [MaxLength(64)]
-        public string Reason { get; set; }
+        public string? Reason { get; set; }
         /// <summary>
         /// 添加人Id
         /// </summary>

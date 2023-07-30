@@ -8,7 +8,7 @@ namespace Models
         /// 耗材Id
         /// </summary>
         [MaxLength(36)]
-        public string ConsumableId { get; set; }
+        public string? ConsumableId { get; set; }
         /// <summary>
         /// 数量
         /// </summary>
@@ -21,6 +21,6 @@ namespace Models
         /// 添加人Id
         /// </summary>
         [MaxLength(36)]
-        public string Creator { get; set; }
+        public string? Creator { get; set; }
     }
 }

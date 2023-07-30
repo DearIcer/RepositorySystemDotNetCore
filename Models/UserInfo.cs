@@ -18,17 +18,17 @@ namespace Models
         /// 手机
         /// </summary>
         [MaxLength(16)]
-        public string PhoneNum { get; set; }
+        public string? PhoneNum { get; set; }
         /// <summary>
         /// 邮箱
         /// </summary>
         [MaxLength(32)]
-        public string Email { get; set; }
+        public string? Email { get; set; }
         /// <summary>
         /// 部门ID
         /// </summary>
         [MaxLength(36)]
-        public string DepartmentId { get; set; }
+        public string? DepartmentId { get; set; }
         /// <summary>
         /// 性别
         /// </summary>
